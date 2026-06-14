@@ -353,7 +353,8 @@
   <span style="font-size:1.75rem">🇵🇱</span>
   <h1>Polaco ↔ Español</h1>
   <div class="badges">
-    <span class="badge">~700 palabras</span>
+    <span class="badge">+1600 tarjetas</span>
+    <span class="badge">150 verbos conjugados</span>
     <span class="badge">100 por partida</span>
     <span class="badge">reintento automático</span>
   </div>
@@ -1198,130 +1199,210 @@ const WORDS = [
   { es:"naranja (color)",                 pl:"pomarańczowy" },
   { es:"dorado",                          pl:"złoty" },
 
-  // ══ 39. CONJUGACIONES — PRESENTE (SER/ESTAR — być) ══════════
-  { es:"yo soy / estoy",                  pl:"ja jestem",          conj:true },
-  { es:"tú eres / estás",                 pl:"ty jesteś",          conj:true },
-  { es:"él/ella es / está",               pl:"on/ona jest",        conj:true },
-  { es:"nosotros somos / estamos",        pl:"my jesteśmy",        conj:true },
-  // TENER — mieć
-  { es:"yo tengo",                        pl:"ja mam",             conj:true },
-  { es:"tú tienes",                       pl:"ty masz",            conj:true },
-  { es:"él/ella tiene",                   pl:"on/ona ma",          conj:true },
-  { es:"nosotros tenemos",                pl:"my mamy",            conj:true },
-  // QUERER — chcieć
-  { es:"yo quiero",                       pl:"ja chcę",            conj:true },
-  { es:"tú quieres",                      pl:"ty chcesz",          conj:true },
-  { es:"él/ella quiere",                  pl:"on/ona chce",        conj:true },
-  { es:"nosotros queremos",               pl:"my chcemy",          conj:true },
-  // PODER — móc
-  { es:"yo puedo",                        pl:"ja mogę",            conj:true },
-  { es:"tú puedes",                       pl:"ty możesz",          conj:true },
-  { es:"él/ella puede",                   pl:"on/ona może",        conj:true },
-  { es:"nosotros podemos",                pl:"my możemy",          conj:true },
-  // HABLAR — mówić
-  { es:"yo hablo",                        pl:"ja mówię",           conj:true },
-  { es:"tú hablas",                       pl:"ty mówisz",          conj:true },
-  { es:"él/ella habla",                   pl:"on/ona mówi",        conj:true },
-  { es:"nosotros hablamos",               pl:"my mówimy",          conj:true },
-  // SABER — wiedzieć
-  { es:"yo sé",                           pl:"ja wiem",            conj:true },
-  { es:"tú sabes",                        pl:"ty wiesz",           conj:true },
-  { es:"él/ella sabe",                    pl:"on/ona wie",         conj:true },
-  { es:"nosotros sabemos",                pl:"my wiemy",           conj:true },
-  // HACER — robić
-  { es:"yo hago",                         pl:"ja robię",           conj:true },
-  { es:"tú haces",                        pl:"ty robisz",          conj:true },
-  { es:"él/ella hace",                    pl:"on/ona robi",        conj:true },
-  { es:"nosotros hacemos",                pl:"my robimy",          conj:true },
-  // IR A PIE — iść
-  { es:"yo voy (a pie)",                  pl:"ja idę",             conj:true },
-  { es:"tú vas (a pie)",                  pl:"ty idziesz",         conj:true },
-  { es:"él/ella va (a pie)",              pl:"on/ona idzie",       conj:true },
-  { es:"nosotros vamos (a pie)",          pl:"my idziemy",         conj:true },
-  // COMER — jeść
-  { es:"yo como",                         pl:"ja jem",             conj:true },
-  { es:"tú comes",                        pl:"ty jesz",            conj:true },
-  { es:"él/ella come",                    pl:"on/ona je",          conj:true },
-  { es:"nosotros comemos",                pl:"my jemy",            conj:true },
-  // BEBER — pić
-  { es:"yo bebo",                         pl:"ja piję",            conj:true },
-  { es:"tú bebes",                        pl:"ty pijesz",          conj:true },
-  { es:"él/ella bebe",                    pl:"on/ona pije",        conj:true },
-  { es:"nosotros bebemos",                pl:"my pijemy",          conj:true },
-  // VIVIR — żyć
-  { es:"yo vivo",                         pl:"ja żyję",            conj:true },
-  { es:"tú vives",                        pl:"ty żyjesz",          conj:true },
-  { es:"él/ella vive",                    pl:"on/ona żyje",        conj:true },
-  { es:"nosotros vivimos",                pl:"my żyjemy",          conj:true },
-  // TRABAJAR — pracować
-  { es:"yo trabajo",                      pl:"ja pracuję",         conj:true },
-  { es:"tú trabajas",                     pl:"ty pracujesz",       conj:true },
-  { es:"él/ella trabaja",                 pl:"on/ona pracuje",     conj:true },
-  { es:"nosotros trabajamos",             pl:"my pracujemy",       conj:true },
-  // LEER — czytać
-  { es:"yo leo",                          pl:"ja czytam",          conj:true },
-  { es:"tú lees",                         pl:"ty czytasz",         conj:true },
-  { es:"él/ella lee",                     pl:"on/ona czyta",       conj:true },
-  { es:"nosotros leemos",                 pl:"my czytamy",         conj:true },
-  // ESCRIBIR — pisać
-  { es:"yo escribo",                      pl:"ja piszę",           conj:true },
-  { es:"tú escribes",                     pl:"ty piszesz",         conj:true },
-  { es:"él/ella escribe",                 pl:"on/ona pisze",       conj:true },
-  { es:"nosotros escribimos",             pl:"my piszemy",         conj:true },
-  // DAR — dawać (imperfective)
-  { es:"yo doy",                          pl:"ja daję",            conj:true },
-  { es:"tú das",                          pl:"ty dajesz",          conj:true },
-  { es:"él/ella da",                      pl:"on/ona daje",        conj:true },
-  { es:"nosotros damos",                  pl:"my dajemy",          conj:true },
-  // DORMIR — spać
-  { es:"yo duermo",                       pl:"ja śpię",            conj:true },
-  { es:"tú duermes",                      pl:"ty śpisz",           conj:true },
-  { es:"él/ella duerme",                  pl:"on/ona śpi",         conj:true },
-  { es:"nosotros dormimos",               pl:"my śpimy",           conj:true },
-  // COMPRAR — kupować (imperfective)
-  { es:"yo compro",                       pl:"ja kupuję",          conj:true },
-  { es:"tú compras",                      pl:"ty kupujesz",        conj:true },
-  { es:"él/ella compra",                  pl:"on/ona kupuje",      conj:true },
-  { es:"nosotros compramos",              pl:"my kupujemy",        conj:true },
-  // ESTUDIAR — uczyć się
-  { es:"yo estudio",                      pl:"ja uczę się",        conj:true },
-  { es:"tú estudias",                     pl:"ty uczysz się",      conj:true },
-  { es:"él/ella estudia",                 pl:"on/ona uczy się",    conj:true },
-  { es:"nosotros estudiamos",             pl:"my uczymy się",      conj:true },
-
-  // ══ 40. CONJUGACIONES — PASADO ════════════════════════════════
-  // SER/ESTAR (pasado) — być
-  { es:"yo fui / estuve",                 pl:"ja byłem/byłam",     conj:true },
-  { es:"tú fuiste / estuviste",           pl:"ty byłeś/byłaś",     conj:true },
-  { es:"él fue / ella estuvo",            pl:"on był / ona była",  conj:true },
-  { es:"nosotros fuimos / estuvimos",     pl:"my byliśmy",         conj:true },
-  // TENER (pasado) — mieć
-  { es:"yo tuve",                         pl:"ja miałem/miałam",   conj:true },
-  { es:"tú tuviste",                      pl:"ty miałeś/miałaś",   conj:true },
-  { es:"él tuvo / ella tuvo",             pl:"on miał / ona miała",conj:true },
-  // HACER (pasado) — zrobić
-  { es:"yo hice",                         pl:"ja zrobiłem/zrobiłam",    conj:true },
-  { es:"tú hiciste",                      pl:"ty zrobiłeś/zrobiłaś",    conj:true },
-  { es:"él/ella hizo",                    pl:"on zrobił / ona zrobiła", conj:true },
-  // COMER (pasado) — jeść
-  { es:"yo comí",                         pl:"ja jadłem/jadłam",   conj:true },
-  { es:"tú comiste",                      pl:"ty jadłeś/jadłaś",   conj:true },
-  { es:"él comió / ella comió",           pl:"on jadł / ona jadła",conj:true },
-  // IR A PIE (pasado) — pójść
-  { es:"yo fui (a pie)",                  pl:"ja poszedłem/poszłam",    conj:true },
-  { es:"tú fuiste (a pie)",               pl:"ty poszedłeś/poszłaś",    conj:true },
-  { es:"él/ella fue (a pie)",             pl:"on poszedł / ona poszła", conj:true },
-  // QUERER (pasado) — chcieć
-  { es:"yo quería / quise",               pl:"ja chciałem/chciałam",    conj:true },
-  { es:"tú querías / quisiste",           pl:"ty chciałeś/chciałaś",    conj:true },
-  { es:"él/ella quería",                  pl:"on chciał / ona chciała", conj:true },
 ];
+
+// ──────────────────────────────────────────────────────────────────
+//  VERB CONJUGATION TABLES  → expanded into match cards below
+//  Present tense uses ONLY imperfective verbs (in Polish the "present"
+//  of a perfective verb actually carries FUTURE meaning).
+//  Format per verb:
+//    es / pl = Spanish & Polish infinitive (reference only)
+//    pr = [ja, ty, on/ona, my]        present tense
+//    pa = [ja(m/f), ty(m/f), on/ona]  past tense
+//    ep = [yo, tú, él/ella, nosotros] Spanish present
+//    ea = [yo, tú, él/ella]           Spanish past (pretérito)
+// ──────────────────────────────────────────────────────────────────
+const VERBS = [
+  // ── núcleo irregular ──────────────────────────────────────────
+  { es:"ser / estar", pl:"być", pr:["jestem","jesteś","jest","jesteśmy"], pa:["byłem/byłam","byłeś/byłaś","był/była"], ep:["soy / estoy","eres / estás","es / está","somos / estamos"], ea:["fui / estuve","fuiste / estuviste","fue / estuvo"] },
+  { es:"tener", pl:"mieć", pr:["mam","masz","ma","mamy"], pa:["miałem/miałam","miałeś/miałaś","miał/miała"], ep:["tengo","tienes","tiene","tenemos"], ea:["tuve","tuviste","tuvo"] },
+  { es:"querer", pl:"chcieć", pr:["chcę","chcesz","chce","chcemy"], pa:["chciałem/chciałam","chciałeś/chciałaś","chciał/chciała"], ep:["quiero","quieres","quiere","queremos"], ea:["quise","quisiste","quiso"] },
+  { es:"poder", pl:"móc", pr:["mogę","możesz","może","możemy"], pa:["mogłem/mogłam","mogłeś/mogłaś","mógł/mogła"], ep:["puedo","puedes","puede","podemos"], ea:["pude","pudiste","pudo"] },
+  { es:"saber (datos)", pl:"wiedzieć", pr:["wiem","wiesz","wie","wiemy"], pa:["wiedziałem/wiedziałam","wiedziałeś/wiedziałaś","wiedział/wiedziała"], ep:["sé","sabes","sabe","sabemos"], ea:["supe","supiste","supo"] },
+  { es:"saber hacer", pl:"umieć", pr:["umiem","umiesz","umie","umiemy"], pa:["umiałem/umiałam","umiałeś/umiałaś","umiał/umiała"], ep:["sé hacer","sabes hacer","sabe hacer","sabemos hacer"], ea:["supe hacer","supiste hacer","supo hacer"] },
+  { es:"deber / tener que", pl:"musieć", pr:["muszę","musisz","musi","musimy"], pa:["musiałem/musiałam","musiałeś/musiałaś","musiał/musiała"], ep:["debo","debes","debe","debemos"], ea:["debí","debiste","debió"] },
+  { es:"entender", pl:"rozumieć", pr:["rozumiem","rozumiesz","rozumie","rozumiemy"], pa:["rozumiałem/rozumiałam","rozumiałeś/rozumiałaś","rozumiał/rozumiała"], ep:["entiendo","entiendes","entiende","entendemos"], ea:["entendí","entendiste","entendió"] },
+  { es:"comer", pl:"jeść", pr:["jem","jesz","je","jemy"], pa:["jadłem/jadłam","jadłeś/jadłaś","jadł/jadła"], ep:["como","comes","come","comemos"], ea:["comí","comiste","comió"] },
+  { es:"preferir", pl:"woleć", pr:["wolę","wolisz","woli","wolimy"], pa:["wolałem/wolałam","wolałeś/wolałaś","wolał/wolała"], ep:["prefiero","prefieres","prefiere","preferimos"], ea:["preferí","preferiste","prefirió"] },
+
+  // ── movimiento ────────────────────────────────────────────────
+  { es:"ir (a pie)", pl:"iść", pr:["idę","idziesz","idzie","idziemy"], pa:["szedłem/szłam","szedłeś/szłaś","szedł/szła"], ep:["voy (a pie)","vas (a pie)","va (a pie)","vamos (a pie)"], ea:["fui (a pie)","fuiste (a pie)","fue (a pie)"] },
+  { es:"ir (en vehículo)", pl:"jechać", pr:["jadę","jedziesz","jedzie","jedziemy"], pa:["jechałem/jechałam","jechałeś/jechałaś","jechał/jechała"], ep:["voy (en coche)","vas (en coche)","va (en coche)","vamos (en coche)"], ea:["fui (en coche)","fuiste (en coche)","fue (en coche)"] },
+  { es:"andar / caminar", pl:"chodzić", pr:["chodzę","chodzisz","chodzi","chodzimy"], pa:["chodziłem/chodziłam","chodziłeś/chodziłaś","chodził/chodziła"], ep:["ando","andas","anda","andamos"], ea:["anduve","anduviste","anduvo"] },
+  { es:"correr", pl:"biegać", pr:["biegam","biegasz","biega","biegamy"], pa:["biegałem/biegałam","biegałeś/biegałaś","biegał/biegała"], ep:["corro","corres","corre","corremos"], ea:["corrí","corriste","corrió"] },
+  { es:"venir / llegar", pl:"przychodzić", pr:["przychodzę","przychodzisz","przychodzi","przychodzimy"], pa:["przychodziłem/przychodziłam","przychodziłeś/przychodziłaś","przychodził/przychodziła"], ep:["vengo","vienes","viene","venimos"], ea:["vine","viniste","vino"] },
+  { es:"entrar", pl:"wchodzić", pr:["wchodzę","wchodzisz","wchodzi","wchodzimy"], pa:["wchodziłem/wchodziłam","wchodziłeś/wchodziłaś","wchodził/wchodziła"], ep:["entro","entras","entra","entramos"], ea:["entré","entraste","entró"] },
+  { es:"salir", pl:"wychodzić", pr:["wychodzę","wychodzisz","wychodzi","wychodzimy"], pa:["wychodziłem/wychodziłam","wychodziłeś/wychodziłaś","wychodził/wychodziła"], ep:["salgo","sales","sale","salimos"], ea:["salí","saliste","salió"] },
+  { es:"volver / regresar", pl:"wracać", pr:["wracam","wracasz","wraca","wracamy"], pa:["wracałem/wracałam","wracałeś/wracałaś","wracał/wracała"], ep:["vuelvo","vuelves","vuelve","volvemos"], ea:["volví","volviste","volvió"] },
+  { es:"volar", pl:"latać", pr:["latam","latasz","lata","latamy"], pa:["latałem/latałam","latałeś/latałaś","latał/latała"], ep:["vuelo","vuelas","vuela","volamos"], ea:["volé","volaste","voló"] },
+  { es:"nadar", pl:"pływać", pr:["pływam","pływasz","pływa","pływamy"], pa:["pływałem/pływałam","pływałeś/pływałaś","pływał/pływała"], ep:["nado","nadas","nada","nadamos"], ea:["nadé","nadaste","nadó"] },
+  { es:"saltar", pl:"skakać", pr:["skaczę","skaczesz","skacze","skaczemy"], pa:["skakałem/skakałam","skakałeś/skakałaś","skakał/skakała"], ep:["salto","saltas","salta","saltamos"], ea:["salté","saltaste","saltó"] },
+  { es:"levantarse", pl:"wstawać", pr:["wstaję","wstajesz","wstaje","wstajemy"], pa:["wstawałem/wstawałam","wstawałeś/wstawałaś","wstawał/wstawała"], ep:["me levanto","te levantas","se levanta","nos levantamos"], ea:["me levanté","te levantaste","se levantó"] },
+  { es:"sentarse", pl:"siadać", pr:["siadam","siadasz","siada","siadamy"], pa:["siadałem/siadałam","siadałeś/siadałaś","siadał/siadała"], ep:["me siento","te sientas","se sienta","nos sentamos"], ea:["me senté","te sentaste","se sentó"] },
+  { es:"caerse", pl:"spadać", pr:["spadam","spadasz","spada","spadamy"], pa:["spadałem/spadałam","spadałeś/spadałaś","spadał/spadała"], ep:["me caigo","te caes","se cae","nos caemos"], ea:["me caí","te caíste","se cayó"] },
+  { es:"quedarse", pl:"zostawać", pr:["zostaję","zostajesz","zostaje","zostajemy"], pa:["zostawałem/zostawałam","zostawałeś/zostawałaś","zostawał/zostawała"], ep:["me quedo","te quedas","se queda","nos quedamos"], ea:["me quedé","te quedaste","se quedó"] },
+
+  // ── comunicación ──────────────────────────────────────────────
+  { es:"hablar", pl:"mówić", pr:["mówię","mówisz","mówi","mówimy"], pa:["mówiłem/mówiłam","mówiłeś/mówiłaś","mówił/mówiła"], ep:["hablo","hablas","habla","hablamos"], ea:["hablé","hablaste","habló"] },
+  { es:"preguntar", pl:"pytać", pr:["pytam","pytasz","pyta","pytamy"], pa:["pytałem/pytałam","pytałeś/pytałaś","pytał/pytała"], ep:["pregunto","preguntas","pregunta","preguntamos"], ea:["pregunté","preguntaste","preguntó"] },
+  { es:"pedir", pl:"prosić", pr:["proszę","prosisz","prosi","prosimy"], pa:["prosiłem/prosiłam","prosiłeś/prosiłaś","prosił/prosiła"], ep:["pido","pides","pide","pedimos"], ea:["pedí","pediste","pidió"] },
+  { es:"responder / contestar", pl:"odpowiadać", pr:["odpowiadam","odpowiadasz","odpowiada","odpowiadamy"], pa:["odpowiadałem/odpowiadałam","odpowiadałeś/odpowiadałaś","odpowiadał/odpowiadała"], ep:["respondo","respondes","responde","respondemos"], ea:["respondí","respondiste","respondió"] },
+  { es:"narrar / contar", pl:"opowiadać", pr:["opowiadam","opowiadasz","opowiada","opowiadamy"], pa:["opowiadałem/opowiadałam","opowiadałeś/opowiadałaś","opowiadał/opowiadała"], ep:["narro","narras","narra","narramos"], ea:["narré","narraste","narró"] },
+  { es:"repetir", pl:"powtarzać", pr:["powtarzam","powtarzasz","powtarza","powtarzamy"], pa:["powtarzałem/powtarzałam","powtarzałeś/powtarzałaś","powtarzał/powtarzała"], ep:["repito","repites","repite","repetimos"], ea:["repetí","repetiste","repitió"] },
+  { es:"explicar", pl:"wyjaśniać", pr:["wyjaśniam","wyjaśniasz","wyjaśnia","wyjaśniamy"], pa:["wyjaśniałem/wyjaśniałam","wyjaśniałeś/wyjaśniałaś","wyjaśniał/wyjaśniała"], ep:["explico","explicas","explica","explicamos"], ea:["expliqué","explicaste","explicó"] },
+  { es:"traducir", pl:"tłumaczyć", pr:["tłumaczę","tłumaczysz","tłumaczy","tłumaczymy"], pa:["tłumaczyłem/tłumaczyłam","tłumaczyłeś/tłumaczyłaś","tłumaczył/tłumaczyła"], ep:["traduzco","traduces","traduce","traducimos"], ea:["traduje","tradujiste","tradujo"] },
+  { es:"llamar (por tel.)", pl:"dzwonić", pr:["dzwonię","dzwonisz","dzwoni","dzwonimy"], pa:["dzwoniłem/dzwoniłam","dzwoniłeś/dzwoniłaś","dzwonił/dzwoniła"], ep:["llamo (por tel.)","llamas (por tel.)","llama (por tel.)","llamamos (por tel.)"], ea:["llamé (por tel.)","llamaste (por tel.)","llamó (por tel.)"] },
+  { es:"llamar (a voces)", pl:"wołać", pr:["wołam","wołasz","woła","wołamy"], pa:["wołałem/wołałam","wołałeś/wołałaś","wołał/wołała"], ep:["llamo (a voces)","llamas (a voces)","llama (a voces)","llamamos (a voces)"], ea:["llamé (a voces)","llamaste (a voces)","llamó (a voces)"] },
+  { es:"llamarse", pl:"nazywać się", pr:["nazywam się","nazywasz się","nazywa się","nazywamy się"], pa:["nazywałem się/nazywałam się","nazywałeś się/nazywałaś się","nazywał się/nazywała się"], ep:["me llamo","te llamas","se llama","nos llamamos"], ea:["me llamé","te llamaste","se llamó"] },
+  { es:"gritar", pl:"krzyczeć", pr:["krzyczę","krzyczysz","krzyczy","krzyczymy"], pa:["krzyczałem/krzyczałam","krzyczałeś/krzyczałaś","krzyczał/krzyczała"], ep:["grito","gritas","grita","gritamos"], ea:["grité","gritaste","gritó"] },
+  { es:"agradecer", pl:"dziękować", pr:["dziękuję","dziękujesz","dziękuje","dziękujemy"], pa:["dziękowałem/dziękowałam","dziękowałeś/dziękowałaś","dziękował/dziękowała"], ep:["agradezco","agradeces","agradece","agradecemos"], ea:["agradecí","agradeciste","agradeció"] },
+  { es:"disculparse", pl:"przepraszać", pr:["przepraszam","przepraszasz","przeprasza","przepraszamy"], pa:["przepraszałem/przepraszałam","przepraszałeś/przepraszałaś","przepraszał/przepraszała"], ep:["me disculpo","te disculpas","se disculpa","nos disculpamos"], ea:["me disculpé","te disculpaste","se disculpó"] },
+  { es:"saludar", pl:"witać", pr:["witam","witasz","wita","witamy"], pa:["witałem/witałam","witałeś/witałaś","witał/witała"], ep:["saludo","saludas","saluda","saludamos"], ea:["saludé","saludaste","saludó"] },
+  { es:"invitar", pl:"zapraszać", pr:["zapraszam","zapraszasz","zaprasza","zapraszamy"], pa:["zapraszałem/zapraszałam","zapraszałeś/zapraszałaś","zapraszał/zapraszała"], ep:["invito","invitas","invita","invitamos"], ea:["invité","invitaste","invitó"] },
+  { es:"prometer", pl:"obiecywać", pr:["obiecuję","obiecujesz","obiecuje","obiecujemy"], pa:["obiecywałem/obiecywałam","obiecywałeś/obiecywałaś","obiecywał/obiecywała"], ep:["prometo","prometes","promete","prometemos"], ea:["prometí","prometiste","prometió"] },
+  { es:"quejarse", pl:"narzekać", pr:["narzekam","narzekasz","narzeka","narzekamy"], pa:["narzekałem/narzekałam","narzekałeś/narzekałaś","narzekał/narzekała"], ep:["me quejo","te quejas","se queja","nos quejamos"], ea:["me quejé","te quejaste","se quejó"] },
+
+  // ── percepción y mente ────────────────────────────────────────
+  { es:"ver", pl:"widzieć", pr:["widzę","widzisz","widzi","widzimy"], pa:["widziałem/widziałam","widziałeś/widziałaś","widział/widziała"], ep:["veo","ves","ve","vemos"], ea:["vi","viste","vio"] },
+  { es:"ver (la tele)", pl:"oglądać", pr:["oglądam","oglądasz","ogląda","oglądamy"], pa:["oglądałem/oglądałam","oglądałeś/oglądałaś","oglądał/oglądała"], ep:["veo (la tele)","ves (la tele)","ve (la tele)","vemos (la tele)"], ea:["vi (la tele)","viste (la tele)","vio (la tele)"] },
+  { es:"mirar", pl:"patrzeć", pr:["patrzę","patrzysz","patrzy","patrzymy"], pa:["patrzyłem/patrzyłam","patrzyłeś/patrzyłaś","patrzył/patrzyła"], ep:["miro","miras","mira","miramos"], ea:["miré","miraste","miró"] },
+  { es:"oír", pl:"słyszeć", pr:["słyszę","słyszysz","słyszy","słyszymy"], pa:["słyszałem/słyszałam","słyszałeś/słyszałaś","słyszał/słyszała"], ep:["oigo","oyes","oye","oímos"], ea:["oí","oíste","oyó"] },
+  { es:"escuchar", pl:"słuchać", pr:["słucham","słuchasz","słucha","słuchamy"], pa:["słuchałem/słuchałam","słuchałeś/słuchałaś","słuchał/słuchała"], ep:["escucho","escuchas","escucha","escuchamos"], ea:["escuché","escuchaste","escuchó"] },
+  { es:"sentir", pl:"czuć", pr:["czuję","czujesz","czuje","czujemy"], pa:["czułem/czułam","czułeś/czułaś","czuł/czuła"], ep:["siento","sientes","siente","sentimos"], ea:["sentí","sentiste","sintió"] },
+  { es:"pensar", pl:"myśleć", pr:["myślę","myślisz","myśli","myślimy"], pa:["myślałem/myślałam","myślałeś/myślałaś","myślał/myślała"], ep:["pienso","piensas","piensa","pensamos"], ea:["pensé","pensaste","pensó"] },
+  { es:"creer", pl:"wierzyć", pr:["wierzę","wierzysz","wierzy","wierzymy"], pa:["wierzyłem/wierzyłam","wierzyłeś/wierzyłaś","wierzył/wierzyła"], ep:["creo","crees","cree","creemos"], ea:["creí","creíste","creyó"] },
+  { es:"considerar / opinar", pl:"uważać", pr:["uważam","uważasz","uważa","uważamy"], pa:["uważałem/uważałam","uważałeś/uważałaś","uważał/uważała"], ep:["opino","opinas","opina","opinamos"], ea:["opiné","opinaste","opinó"] },
+  { es:"recordar", pl:"pamiętać", pr:["pamiętam","pamiętasz","pamięta","pamiętamy"], pa:["pamiętałem/pamiętałam","pamiętałeś/pamiętałaś","pamiętał/pamiętała"], ep:["recuerdo","recuerdas","recuerda","recordamos"], ea:["recordé","recordaste","recordó"] },
+  { es:"olvidar", pl:"zapominać", pr:["zapominam","zapominasz","zapomina","zapominamy"], pa:["zapominałem/zapominałam","zapominałeś/zapominałaś","zapominał/zapominała"], ep:["olvido","olvidas","olvida","olvidamos"], ea:["olvidé","olvidaste","olvidó"] },
+  { es:"soñar (dormido)", pl:"śnić", pr:["śnię","śnisz","śni","śnimy"], pa:["śniłem/śniłam","śniłeś/śniłaś","śnił/śniła"], ep:["sueño (dormido)","sueñas (dormido)","sueña (dormido)","soñamos (dormidos)"], ea:["soñé (dormido)","soñaste (dormido)","soñó (dormido)"] },
+  { es:"soñar (despierto)", pl:"marzyć", pr:["marzę","marzysz","marzy","marzymy"], pa:["marzyłem/marzyłam","marzyłeś/marzyłaś","marzył/marzyła"], ep:["sueño (despierto)","sueñas (despierto)","sueña (despierto)","soñamos (despiertos)"], ea:["soñé (despierto)","soñaste (despierto)","soñó (despierto)"] },
+
+  // ── sentimientos ──────────────────────────────────────────────
+  { es:"amar", pl:"kochać", pr:["kocham","kochasz","kocha","kochamy"], pa:["kochałem/kochałam","kochałeś/kochałaś","kochał/kochała"], ep:["amo","amas","ama","amamos"], ea:["amé","amaste","amó"] },
+  { es:"gustar", pl:"lubić", pr:["lubię","lubisz","lubi","lubimy"], pa:["lubiłem/lubiłam","lubiłeś/lubiłaś","lubił/lubiła"], ep:["me gusta","te gusta","le gusta","nos gusta"], ea:["me gustó","te gustó","le gustó"] },
+  { es:"alegrarse", pl:"cieszyć się", pr:["cieszę się","cieszysz się","cieszy się","cieszymy się"], pa:["cieszyłem się/cieszyłam się","cieszyłeś się/cieszyłaś się","cieszył się/cieszyła się"], ep:["me alegro","te alegras","se alegra","nos alegramos"], ea:["me alegré","te alegraste","se alegró"] },
+  { es:"preocuparse", pl:"martwić się", pr:["martwię się","martwisz się","martwi się","martwimy się"], pa:["martwiłem się/martwiłam się","martwiłeś się/martwiłaś się","martwił się/martwiła się"], ep:["me preocupo","te preocupas","se preocupa","nos preocupamos"], ea:["me preocupé","te preocupaste","se preocupó"] },
+  { es:"temer / tener miedo", pl:"bać się", pr:["boję się","boisz się","boi się","boimy się"], pa:["bałem się/bałam się","bałeś się/bałaś się","bał się/bała się"], ep:["temo","temes","teme","tememos"], ea:["temí","temiste","temió"] },
+  { es:"reír", pl:"śmiać się", pr:["śmieję się","śmiejesz się","śmieje się","śmiejemy się"], pa:["śmiałem się/śmiałam się","śmiałeś się/śmiałaś się","śmiał się/śmiała się"], ep:["me río","te ríes","se ríe","nos reímos"], ea:["me reí","te reíste","se rió"] },
+  { es:"llorar", pl:"płakać", pr:["płaczę","płaczesz","płacze","płaczemy"], pa:["płakałem/płakałam","płakałeś/płakałaś","płakał/płakała"], ep:["lloro","lloras","llora","lloramos"], ea:["lloré","lloraste","lloró"] },
+  { es:"divertirse", pl:"bawić się", pr:["bawię się","bawisz się","bawi się","bawimy się"], pa:["bawiłem się/bawiłam się","bawiłeś się/bawiłaś się","bawił się/bawiła się"], ep:["me divierto","te diviertes","se divierte","nos divertimos"], ea:["me divertí","te divertiste","se divirtió"] },
+  { es:"enfadarse", pl:"denerwować się", pr:["denerwuję się","denerwujesz się","denerwuje się","denerwujemy się"], pa:["denerwowałem się/denerwowałam się","denerwowałeś się/denerwowałaś się","denerwował się/denerwowała się"], ep:["me enfado","te enfadas","se enfada","nos enfadamos"], ea:["me enfadé","te enfadaste","se enfadó"] },
+  { es:"interesarse", pl:"interesować się", pr:["interesuję się","interesujesz się","interesuje się","interesujemy się"], pa:["interesowałem się/interesowałam się","interesowałeś się/interesowałaś się","interesował się/interesowała się"], ep:["me intereso","te interesas","se interesa","nos interesamos"], ea:["me interesé","te interesaste","se interesó"] },
+  { es:"lamentar / arrepentirse", pl:"żałować", pr:["żałuję","żałujesz","żałuje","żałujemy"], pa:["żałowałem/żałowałam","żałowałeś/żałowałaś","żałował/żałowała"], ep:["lamento","lamentas","lamenta","lamentamos"], ea:["lamenté","lamentaste","lamentó"] },
+  { es:"rezar", pl:"modlić się", pr:["modlę się","modlisz się","modli się","modlimy się"], pa:["modliłem się/modliłam się","modliłeś się/modliłaś się","modlił się/modliła się"], ep:["rezo","rezas","reza","rezamos"], ea:["recé","rezaste","rezó"] },
+
+  // ── actividad diaria ──────────────────────────────────────────
+  { es:"hacer", pl:"robić", pr:["robię","robisz","robi","robimy"], pa:["robiłem/robiłam","robiłeś/robiłaś","robił/robiła"], ep:["hago","haces","hace","hacemos"], ea:["hice","hiciste","hizo"] },
+  { es:"trabajar", pl:"pracować", pr:["pracuję","pracujesz","pracuje","pracujemy"], pa:["pracowałem/pracowałam","pracowałeś/pracowałaś","pracował/pracowała"], ep:["trabajo","trabajas","trabaja","trabajamos"], ea:["trabajé","trabajaste","trabajó"] },
+  { es:"leer", pl:"czytać", pr:["czytam","czytasz","czyta","czytamy"], pa:["czytałem/czytałam","czytałeś/czytałaś","czytał/czytała"], ep:["leo","lees","lee","leemos"], ea:["leí","leíste","leyó"] },
+  { es:"escribir", pl:"pisać", pr:["piszę","piszesz","pisze","piszemy"], pa:["pisałem/pisałam","pisałeś/pisałaś","pisał/pisała"], ep:["escribo","escribes","escribe","escribimos"], ea:["escribí","escribiste","escribió"] },
+  { es:"beber", pl:"pić", pr:["piję","pijesz","pije","pijemy"], pa:["piłem/piłam","piłeś/piłaś","pił/piła"], ep:["bebo","bebes","bebe","bebemos"], ea:["bebí","bebiste","bebió"] },
+  { es:"dormir", pl:"spać", pr:["śpię","śpisz","śpi","śpimy"], pa:["spałem/spałam","spałeś/spałaś","spał/spała"], ep:["duermo","duermes","duerme","dormimos"], ea:["dormí","dormiste","durmió"] },
+  { es:"vivir / existir", pl:"żyć", pr:["żyję","żyjesz","żyje","żyjemy"], pa:["żyłem/żyłam","żyłeś/żyłaś","żył/żyła"], ep:["vivo","vives","vive","vivimos"], ea:["viví","viviste","vivió"] },
+  { es:"residir", pl:"mieszkać", pr:["mieszkam","mieszkasz","mieszka","mieszkamy"], pa:["mieszkałem/mieszkałam","mieszkałeś/mieszkałaś","mieszkał/mieszkała"], ep:["resido","resides","reside","residimos"], ea:["residí","residiste","residió"] },
+  { es:"cocinar", pl:"gotować", pr:["gotuję","gotujesz","gotuje","gotujemy"], pa:["gotowałem/gotowałam","gotowałeś/gotowałaś","gotował/gotowała"], ep:["cocino","cocinas","cocina","cocinamos"], ea:["cociné","cocinaste","cocinó"] },
+  { es:"lavar", pl:"myć", pr:["myję","myjesz","myje","myjemy"], pa:["myłem/myłam","myłeś/myłaś","mył/myła"], ep:["lavo","lavas","lava","lavamos"], ea:["lavé","lavaste","lavó"] },
+  { es:"limpiar / ordenar", pl:"sprzątać", pr:["sprzątam","sprzątasz","sprząta","sprzątamy"], pa:["sprzątałem/sprzątałam","sprzątałeś/sprzątałaś","sprzątał/sprzątała"], ep:["limpio","limpias","limpia","limpiamos"], ea:["limpié","limpiaste","limpió"] },
+  { es:"vestirse", pl:"ubierać się", pr:["ubieram się","ubierasz się","ubiera się","ubieramy się"], pa:["ubierałem się/ubierałam się","ubierałeś się/ubierałaś się","ubierał się/ubierała się"], ep:["me visto","te vistes","se viste","nos vestimos"], ea:["me vestí","te vestiste","se vistió"] },
+  { es:"descansar", pl:"odpoczywać", pr:["odpoczywam","odpoczywasz","odpoczywa","odpoczywamy"], pa:["odpoczywałem/odpoczywałam","odpoczywałeś/odpoczywałaś","odpoczywał/odpoczywała"], ep:["descanso","descansas","descansa","descansamos"], ea:["descansé","descansaste","descansó"] },
+  { es:"cantar", pl:"śpiewać", pr:["śpiewam","śpiewasz","śpiewa","śpiewamy"], pa:["śpiewałem/śpiewałam","śpiewałeś/śpiewałaś","śpiewał/śpiewała"], ep:["canto","cantas","canta","cantamos"], ea:["canté","cantaste","cantó"] },
+  { es:"bailar", pl:"tańczyć", pr:["tańczę","tańczysz","tańczy","tańczymy"], pa:["tańczyłem/tańczyłam","tańczyłeś/tańczyłaś","tańczył/tańczyła"], ep:["bailo","bailas","baila","bailamos"], ea:["bailé","bailaste","bailó"] },
+  { es:"jugar / tocar", pl:"grać", pr:["gram","grasz","gra","gramy"], pa:["grałem/grałam","grałeś/grałaś","grał/grała"], ep:["juego","juegas","juega","jugamos"], ea:["jugué","jugaste","jugó"] },
+  { es:"practicar / entrenar", pl:"ćwiczyć", pr:["ćwiczę","ćwiczysz","ćwiczy","ćwiczymy"], pa:["ćwiczyłem/ćwiczyłam","ćwiczyłeś/ćwiczyłaś","ćwiczył/ćwiczyła"], ep:["practico","practicas","practica","practicamos"], ea:["practiqué","practicaste","practicó"] },
+  { es:"afeitarse", pl:"golić się", pr:["golę się","golisz się","goli się","golimy się"], pa:["goliłem się/goliłam się","goliłeś się/goliłaś się","golił się/goliła się"], ep:["me afeito","te afeitas","se afeita","nos afeitamos"], ea:["me afeité","te afeitaste","se afeitó"] },
+  { es:"bromear", pl:"żartować", pr:["żartuję","żartujesz","żartuje","żartujemy"], pa:["żartowałem/żartowałam","żartowałeś/żartowałaś","żartował/żartowała"], ep:["bromeo","bromeas","bromea","bromeamos"], ea:["bromeé","bromeaste","bromeó"] },
+
+  // ── aprender / enseñar ────────────────────────────────────────
+  { es:"aprender", pl:"uczyć się", pr:["uczę się","uczysz się","uczy się","uczymy się"], pa:["uczyłem się/uczyłam się","uczyłeś się/uczyłaś się","uczył się/uczyła się"], ep:["aprendo","aprendes","aprende","aprendemos"], ea:["aprendí","aprendiste","aprendió"] },
+  { es:"enseñar", pl:"uczyć", pr:["uczę","uczysz","uczy","uczymy"], pa:["uczyłem/uczyłam","uczyłeś/uczyłaś","uczył/uczyła"], ep:["enseño","enseñas","enseña","enseñamos"], ea:["enseñé","enseñaste","enseñó"] },
+  { es:"estudiar (carrera)", pl:"studiować", pr:["studiuję","studiujesz","studiuje","studiujemy"], pa:["studiowałem/studiowałam","studiowałeś/studiowałaś","studiował/studiowała"], ep:["estudio","estudias","estudia","estudiamos"], ea:["estudié","estudiaste","estudió"] },
+  { es:"contar (números)", pl:"liczyć", pr:["liczę","liczysz","liczy","liczymy"], pa:["liczyłem/liczyłam","liczyłeś/liczyłaś","liczył/liczyła"], ep:["cuento","cuentas","cuenta","contamos"], ea:["conté","contaste","contó"] },
+  { es:"terminar", pl:"kończyć", pr:["kończę","kończysz","kończy","kończymy"], pa:["kończyłem/kończyłam","kończyłeś/kończyłaś","kończył/kończyła"], ep:["termino","terminas","termina","terminamos"], ea:["terminé","terminaste","terminó"] },
+  { es:"empezar", pl:"zaczynać", pr:["zaczynam","zaczynasz","zaczyna","zaczynamy"], pa:["zaczynałem/zaczynałam","zaczynałeś/zaczynałaś","zaczynał/zaczynała"], ep:["empiezo","empiezas","empieza","empezamos"], ea:["empecé","empezaste","empezó"] },
+
+  // ── manipular objetos ─────────────────────────────────────────
+  { es:"tomar / coger", pl:"brać", pr:["biorę","bierzesz","bierze","bierzemy"], pa:["brałem/brałam","brałeś/brałaś","brał/brała"], ep:["tomo","tomas","toma","tomamos"], ea:["tomé","tomaste","tomó"] },
+  { es:"dar", pl:"dawać", pr:["daję","dajesz","daje","dajemy"], pa:["dawałem/dawałam","dawałeś/dawałaś","dawał/dawała"], ep:["doy","das","da","damos"], ea:["di","diste","dio"] },
+  { es:"poner / colocar", pl:"kłaść", pr:["kładę","kładziesz","kładzie","kładziemy"], pa:["kładłem/kładłam","kładłeś/kładłaś","kładł/kładła"], ep:["pongo","pones","pone","ponemos"], ea:["puse","pusiste","puso"] },
+  { es:"cargar / llevar", pl:"nosić", pr:["noszę","nosisz","nosi","nosimy"], pa:["nosiłem/nosiłam","nosiłeś/nosiłaś","nosił/nosiła"], ep:["llevo (puesto)","llevas (puesto)","lleva (puesto)","llevamos (puesto)"], ea:["llevé (puesto)","llevaste (puesto)","llevó (puesto)"] },
+  { es:"llevar (cargando)", pl:"nieść", pr:["niosę","niesiesz","niesie","niesiemy"], pa:["niosłem/niosłam","niosłeś/niosłaś","niósł/niosła"], ep:["cargo","cargas","carga","cargamos"], ea:["cargué","cargaste","cargó"] },
+  { es:"transportar", pl:"wozić", pr:["wożę","wozisz","wozi","wozimy"], pa:["woziłem/woziłam","woziłeś/woziłaś","woził/woziła"], ep:["transporto","transportas","transporta","transportamos"], ea:["transporté","transportaste","transportó"] },
+  { es:"conducir", pl:"prowadzić", pr:["prowadzę","prowadzisz","prowadzi","prowadzimy"], pa:["prowadziłem/prowadziłam","prowadziłeś/prowadziłaś","prowadził/prowadziła"], ep:["conduzco","conduces","conduce","conducimos"], ea:["conduje","condujiste","condujo"] },
+  { es:"buscar", pl:"szukać", pr:["szukam","szukasz","szuka","szukamy"], pa:["szukałem/szukałam","szukałeś/szukałaś","szukał/szukała"], ep:["busco","buscas","busca","buscamos"], ea:["busqué","buscaste","buscó"] },
+  { es:"elegir / escoger", pl:"wybierać", pr:["wybieram","wybierasz","wybiera","wybieramy"], pa:["wybierałem/wybierałam","wybierałeś/wybierałaś","wybierał/wybierała"], ep:["elijo","eliges","elige","elegimos"], ea:["elegí","elegiste","eligió"] },
+  { es:"recoger / coleccionar", pl:"zbierać", pr:["zbieram","zbierasz","zbiera","zbieramy"], pa:["zbierałem/zbierałam","zbierałeś/zbierałaś","zbierał/zbierała"], ep:["recojo","recoges","recoge","recogemos"], ea:["recogí","recogiste","recogió"] },
+  { es:"dejar", pl:"zostawiać", pr:["zostawiam","zostawiasz","zostawia","zostawiamy"], pa:["zostawiałem/zostawiałam","zostawiałeś/zostawiałaś","zostawiał/zostawiała"], ep:["dejo","dejas","deja","dejamos"], ea:["dejé","dejaste","dejó"] },
+  { es:"mostrar / enseñar", pl:"pokazywać", pr:["pokazuję","pokazujesz","pokazuje","pokazujemy"], pa:["pokazywałem/pokazywałam","pokazywałeś/pokazywałaś","pokazywał/pokazywała"], ep:["muestro","muestras","muestra","mostramos"], ea:["mostré","mostraste","mostró"] },
+  { es:"lanzar / tirar", pl:"rzucać", pr:["rzucam","rzucasz","rzuca","rzucamy"], pa:["rzucałem/rzucałam","rzucałeś/rzucałaś","rzucał/rzucała"], ep:["lanzo","lanzas","lanza","lanzamos"], ea:["lancé","lanzaste","lanzó"] },
+  { es:"sostener", pl:"trzymać", pr:["trzymam","trzymasz","trzyma","trzymamy"], pa:["trzymałem/trzymałam","trzymałeś/trzymałaś","trzymał/trzymała"], ep:["sostengo","sostienes","sostiene","sostenemos"], ea:["sostuve","sostuviste","sostuvo"] },
+  { es:"abrir", pl:"otwierać", pr:["otwieram","otwierasz","otwiera","otwieramy"], pa:["otwierałem/otwierałam","otwierałeś/otwierałaś","otwierał/otwierała"], ep:["abro","abres","abre","abrimos"], ea:["abrí","abriste","abrió"] },
+  { es:"cerrar", pl:"zamykać", pr:["zamykam","zamykasz","zamyka","zamykamy"], pa:["zamykałem/zamykałam","zamykałeś/zamykałaś","zamykał/zamykała"], ep:["cierro","cierras","cierra","cerramos"], ea:["cerré","cerraste","cerró"] },
+  { es:"perder (objeto)", pl:"gubić", pr:["gubię","gubisz","gubi","gubimy"], pa:["gubiłem/gubiłam","gubiłeś/gubiłaś","gubił/gubiła"], ep:["pierdo","pierdes","pierde","perdemos"], ea:["perdí","perdiste","perdió"] },
+  { es:"dividir / compartir", pl:"dzielić", pr:["dzielę","dzielisz","dzieli","dzielimy"], pa:["dzieliłem/dzieliłam","dzieliłeś/dzieliłaś","dzielił/dzieliła"], ep:["divido","divides","divide","dividimos"], ea:["dividí","dividiste","dividió"] },
+
+  // ── crear / construir ─────────────────────────────────────────
+  { es:"construir", pl:"budować", pr:["buduję","budujesz","buduje","budujemy"], pa:["budowałem/budowałam","budowałeś/budowałaś","budował/budowała"], ep:["construyo","construyes","construye","construimos"], ea:["construí","construiste","construyó"] },
+  { es:"formar / crear", pl:"tworzyć", pr:["tworzę","tworzysz","tworzy","tworzymy"], pa:["tworzyłem/tworzyłam","tworzyłeś/tworzyłaś","tworzył/tworzyła"], ep:["formo","formas","forma","formamos"], ea:["formé","formaste","formó"] },
+  { es:"pintar", pl:"malować", pr:["maluję","malujesz","maluje","malujemy"], pa:["malowałem/malowałam","malowałeś/malowałaś","malował/malowała"], ep:["pinto","pintas","pinta","pintamos"], ea:["pinté","pintaste","pintó"] },
+  { es:"reparar / arreglar", pl:"naprawiać", pr:["naprawiam","naprawiasz","naprawia","naprawiamy"], pa:["naprawiałem/naprawiałam","naprawiałeś/naprawiałaś","naprawiał/naprawiała"], ep:["reparo","reparas","repara","reparamos"], ea:["reparé","reparaste","reparó"] },
+  { es:"preparar", pl:"przygotowywać", pr:["przygotowuję","przygotowujesz","przygotowuje","przygotowujemy"], pa:["przygotowywałem/przygotowywałam","przygotowywałeś/przygotowywałaś","przygotowywał/przygotowywała"], ep:["preparo","preparas","prepara","preparamos"], ea:["preparé","preparaste","preparó"] },
+  { es:"cambiar", pl:"zmieniać", pr:["zmieniam","zmieniasz","zmienia","zmieniamy"], pa:["zmieniałem/zmieniałam","zmieniałeś/zmieniałaś","zmieniał/zmieniała"], ep:["cambio","cambias","cambia","cambiamos"], ea:["cambié","cambiaste","cambió"] },
+
+  // ── ayuda / sociedad ──────────────────────────────────────────
+  { es:"ayudar", pl:"pomagać", pr:["pomagam","pomagasz","pomaga","pomagamy"], pa:["pomagałem/pomagałam","pomagałeś/pomagałaś","pomagał/pomagała"], ep:["ayudo","ayudas","ayuda","ayudamos"], ea:["ayudé","ayudaste","ayudó"] },
+  { es:"respetar", pl:"szanować", pr:["szanuję","szanujesz","szanuje","szanujemy"], pa:["szanowałem/szanowałam","szanowałeś/szanowałaś","szanował/szanowała"], ep:["respeto","respetas","respeta","respetamos"], ea:["respeté","respetaste","respetó"] },
+  { es:"besar", pl:"całować", pr:["całuję","całujesz","całuje","całujemy"], pa:["całowałem/całowałam","całowałeś/całowałaś","całował/całowała"], ep:["beso","besas","besa","besamos"], ea:["besé","besaste","besó"] },
+  { es:"necesitar", pl:"potrzebować", pr:["potrzebuję","potrzebujesz","potrzebuje","potrzebujemy"], pa:["potrzebowałem/potrzebowałam","potrzebowałeś/potrzebowałaś","potrzebował/potrzebowała"], ep:["necesito","necesitas","necesita","necesitamos"], ea:["necesité","necesitaste","necesitó"] },
+  { es:"intentar / probar", pl:"próbować", pr:["próbuję","próbujesz","próbuje","próbujemy"], pa:["próbowałem/próbowałam","próbowałeś/próbowałaś","próbował/próbowała"], ep:["intento","intentas","intenta","intentamos"], ea:["intenté","intentaste","intentó"] },
+  { es:"decidir", pl:"decydować", pr:["decyduję","decydujesz","decyduje","decydujemy"], pa:["decydowałem/decydowałam","decydowałeś/decydowałaś","decydował/decydowała"], ep:["decido","decides","decide","decidimos"], ea:["decidí","decidiste","decidió"] },
+  { es:"estar de acuerdo", pl:"zgadzać się", pr:["zgadzam się","zgadzasz się","zgadza się","zgadzamy się"], pa:["zgadzałem się/zgadzałam się","zgadzałeś się/zgadzałaś się","zgadzał się/zgadzała się"], ep:["estoy de acuerdo","estás de acuerdo","está de acuerdo","estamos de acuerdo"], ea:["estuve de acuerdo","estuviste de acuerdo","estuvo de acuerdo"] },
+  { es:"comprobar / revisar", pl:"sprawdzać", pr:["sprawdzam","sprawdzasz","sprawdza","sprawdzamy"], pa:["sprawdzałem/sprawdzałam","sprawdzałeś/sprawdzałaś","sprawdzał/sprawdzała"], ep:["compruebo","compruebas","comprueba","comprobamos"], ea:["comprobé","comprobaste","comprobó"] },
+  { es:"organizar", pl:"organizować", pr:["organizuję","organizujesz","organizuje","organizujemy"], pa:["organizowałem/organizowałam","organizowałeś/organizowałaś","organizował/organizowała"], ep:["organizo","organizas","organiza","organizamos"], ea:["organicé","organizaste","organizó"] },
+  { es:"planear", pl:"planować", pr:["planuję","planujesz","planuje","planujemy"], pa:["planowałem/planowałam","planowałeś/planowałaś","planował/planowała"], ep:["planeo","planeas","planea","planeamos"], ea:["planeé","planeaste","planeó"] },
+
+  // ── compras / dinero / viajes ─────────────────────────────────
+  { es:"comprar", pl:"kupować", pr:["kupuję","kupujesz","kupuje","kupujemy"], pa:["kupowałem/kupowałam","kupowałeś/kupowałaś","kupował/kupowała"], ep:["compro","compras","compra","compramos"], ea:["compré","compraste","compró"] },
+  { es:"vender", pl:"sprzedawać", pr:["sprzedaję","sprzedajesz","sprzedaje","sprzedajemy"], pa:["sprzedawałem/sprzedawałam","sprzedawałeś/sprzedawałaś","sprzedawał/sprzedawała"], ep:["vendo","vendes","vende","vendemos"], ea:["vendí","vendiste","vendió"] },
+  { es:"pagar", pl:"płacić", pr:["płacę","płacisz","płaci","płacimy"], pa:["płaciłem/płaciłam","płaciłeś/płaciłaś","płacił/płaciła"], ep:["pago","pagas","paga","pagamos"], ea:["pagué","pagaste","pagó"] },
+  { es:"gastar", pl:"wydawać", pr:["wydaję","wydajesz","wydaje","wydajemy"], pa:["wydawałem/wydawałam","wydawałeś/wydawałaś","wydawał/wydawała"], ep:["gasto","gastas","gasta","gastamos"], ea:["gasté","gastaste","gastó"] },
+  { es:"ganar (dinero)", pl:"zarabiać", pr:["zarabiam","zarabiasz","zarabia","zarabiamy"], pa:["zarabiałem/zarabiałam","zarabiałeś/zarabiałaś","zarabiał/zarabiała"], ep:["gano (dinero)","ganas (dinero)","gana (dinero)","ganamos (dinero)"], ea:["gané (dinero)","ganaste (dinero)","ganó (dinero)"] },
+  { es:"recibir / obtener", pl:"dostawać", pr:["dostaję","dostajesz","dostaje","dostajemy"], pa:["dostawałem/dostawałam","dostawałeś/dostawałaś","dostawał/dostawała"], ep:["recibo","recibes","recibe","recibimos"], ea:["recibí","recibiste","recibió"] },
+  { es:"enviar / mandar", pl:"wysyłać", pr:["wysyłam","wysyłasz","wysyła","wysyłamy"], pa:["wysyłałem/wysyłałam","wysyłałeś/wysyłałaś","wysyłał/wysyłała"], ep:["envío","envías","envía","enviamos"], ea:["envié","enviaste","envió"] },
+  { es:"viajar", pl:"podróżować", pr:["podróżuję","podróżujesz","podróżuje","podróżujemy"], pa:["podróżowałem/podróżowałam","podróżowałeś/podróżowałaś","podróżował/podróżowała"], ep:["viajo","viajas","viaja","viajamos"], ea:["viajé","viajaste","viajó"] },
+  { es:"reservar", pl:"rezerwować", pr:["rezerwuję","rezerwujesz","rezerwuje","rezerwujemy"], pa:["rezerwowałem/rezerwowałam","rezerwowałeś/rezerwowałaś","rezerwował/rezerwowała"], ep:["reservo","reservas","reserva","reservamos"], ea:["reservé","reservaste","reservó"] },
+  { es:"aparcar / estacionar", pl:"parkować", pr:["parkuję","parkujesz","parkuje","parkujemy"], pa:["parkowałem/parkowałam","parkowałeś/parkowałaś","parkował/parkowała"], ep:["aparco","aparcas","aparca","aparcamos"], ea:["aparqué","aparcaste","aparcó"] },
+  { es:"empacar", pl:"pakować", pr:["pakuję","pakujesz","pakuje","pakujemy"], pa:["pakowałem/pakowałam","pakowałeś/pakowałaś","pakował/pakowała"], ep:["empaco","empacas","empaca","empacamos"], ea:["empaqué","empacaste","empacó"] },
+  { es:"alquilar", pl:"wynajmować", pr:["wynajmuję","wynajmujesz","wynajmuje","wynajmujemy"], pa:["wynajmowałem/wynajmowałam","wynajmowałeś/wynajmowałaś","wynajmował/wynajmowała"], ep:["alquilo","alquilas","alquila","alquilamos"], ea:["alquilé","alquilaste","alquiló"] },
+  { es:"visitar (turismo)", pl:"zwiedzać", pr:["zwiedzam","zwiedzasz","zwiedza","zwiedzamy"], pa:["zwiedzałem/zwiedzałam","zwiedzałeś/zwiedzałaś","zwiedzał/zwiedzała"], ep:["visito","visitas","visita","visitamos"], ea:["visité","visitaste","visitó"] },
+  { es:"esperar / aguardar", pl:"czekać", pr:["czekam","czekasz","czeka","czekamy"], pa:["czekałem/czekałam","czekałeś/czekałaś","czekał/czekała"], ep:["espero","esperas","espera","esperamos"], ea:["esperé","esperaste","esperó"] },
+  { es:"conocer / saber de", pl:"znać", pr:["znam","znasz","zna","znamy"], pa:["znałem/znałam","znałeś/znałaś","znał/znała"], ep:["conozco","conoces","conoce","conocemos"], ea:["conocí","conociste","conoció"] },
+  { es:"encontrarse con", pl:"spotykać", pr:["spotykam","spotykasz","spotyka","spotykamy"], pa:["spotykałem/spotykałam","spotykałeś/spotykałaś","spotykał/spotykała"], ep:["me encuentro","te encuentras","se encuentra","nos encontramos"], ea:["me encontré","te encontraste","se encontró"] },
+  { es:"parecer / verse", pl:"wyglądać", pr:["wyglądam","wyglądasz","wygląda","wyglądamy"], pa:["wyglądałem/wyglądałam","wyglądałeś/wyglądałaś","wyglądał/wyglądała"], ep:["parezco","pareces","parece","parecemos"], ea:["parecí","pareciste","pareció"] },
+  { es:"pasar (tiempo)", pl:"spędzać", pr:["spędzam","spędzasz","spędza","spędzamy"], pa:["spędzałem/spędzałam","spędzałeś/spędzałaś","spędzał/spędzała"], ep:["paso (tiempo)","pasas (tiempo)","pasa (tiempo)","pasamos (tiempo)"], ea:["pasé (tiempo)","pasaste (tiempo)","pasó (tiempo)"] },
+  { es:"aprovechar", pl:"korzystać", pr:["korzystam","korzystasz","korzysta","korzystamy"], pa:["korzystałem/korzystałam","korzystałeś/korzystałaś","korzystał/korzystała"], ep:["aprovecho","aprovechas","aprovecha","aprovechamos"], ea:["aproveché","aprovechaste","aprovechó"] },
+  { es:"usar / utilizar", pl:"używać", pr:["używam","używasz","używa","używamy"], pa:["używałem/używałam","używałeś/używałaś","używał/używała"], ep:["uso","usas","usa","usamos"], ea:["usé","usaste","usó"] },
+  { es:"estar de pie", pl:"stać", pr:["stoję","stoisz","stoi","stoimy"], pa:["stałem/stałam","stałeś/stałaś","stał/stała"], ep:["estoy de pie","estás de pie","está de pie","estamos de pie"], ea:["estuve de pie","estuviste de pie","estuvo de pie"] },
+  { es:"estar sentado", pl:"siedzieć", pr:["siedzę","siedzisz","siedzi","siedzimy"], pa:["siedziałem/siedziałam","siedziałeś/siedziałaś","siedział/siedziała"], ep:["estoy sentado","estás sentado","está sentado","estamos sentados"], ea:["estuve sentado","estuviste sentado","estuvo sentado"] },
+  { es:"estar tumbado", pl:"leżeć", pr:["leżę","leżysz","leży","leżymy"], pa:["leżałem/leżałam","leżałeś/leżałaś","leżał/leżała"], ep:["estoy tumbado","estás tumbado","está tumbado","estamos tumbados"], ea:["estuve tumbado","estuviste tumbado","estuvo tumbado"] },
+];
+
+// ── Expand the verb tables into individual matchable cards ─────────
+VERBS.forEach(v => {
+  WORDS.push({ es:"yo "       + v.ep[0], pl:"ja "     + v.pr[0], conj:true });
+  WORDS.push({ es:"tú "       + v.ep[1], pl:"ty "     + v.pr[1], conj:true });
+  WORDS.push({ es:"él/ella "  + v.ep[2], pl:"on/ona " + v.pr[2], conj:true });
+  WORDS.push({ es:"nosotros " + v.ep[3], pl:"my "     + v.pr[3], conj:true });
+  WORDS.push({ es:"yo "      + v.ea[0] + " (pas.)", pl:"ja "     + v.pa[0], conj:true });
+  WORDS.push({ es:"tú "      + v.ea[1] + " (pas.)", pl:"ty "     + v.pa[1], conj:true });
+  WORDS.push({ es:"él/ella " + v.ea[2] + " (pas.)", pl:"on/ona " + v.pa[2], conj:true });
+});
 
 // ══════════════════════════════════════════════════════════════════
 //  CONSTANTS
 // ══════════════════════════════════════════════════════════════════
 const ROUND_SIZE     = 10;
 const WORDS_PER_GAME = 100;
+const CONJ_PER_GAME  = 40;   // cap conjugations at ~40% of each game (balanced mix)
 
 // ══════════════════════════════════════════════════════════════════
 //  STATE
@@ -1403,8 +1484,29 @@ function setMode(m) {
 // ══════════════════════════════════════════════════════════════════
 //  RESTART
 // ══════════════════════════════════════════════════════════════════
+// Pick 100 words for a game: ~40 conjugations + ~60 plain vocab (balanced mix)
+function pickGameWords() {
+  const conj  = WORDS.filter(w => w.conj);
+  const plain = WORDS.filter(w => !w.conj);
+
+  const nConj  = Math.min(CONJ_PER_GAME, conj.length);
+  const pickC  = shuffle(conj).slice(0, nConj);
+  const pickP  = shuffle(plain).slice(0, WORDS_PER_GAME - nConj);
+
+  let chosen = [...pickC, ...pickP];
+
+  // Backfill if a pool ran short, so we always reach 100
+  if (chosen.length < WORDS_PER_GAME) {
+    const used  = new Set(chosen);
+    const extra = shuffle(WORDS.filter(w => !used.has(w)))
+                    .slice(0, WORDS_PER_GAME - chosen.length);
+    chosen = [...chosen, ...extra];
+  }
+  return shuffle(chosen);
+}
+
 function restartGame() {
-  S.pendingQueue = shuffle(WORDS).slice(0, WORDS_PER_GAME);
+  S.pendingQueue = pickGameWords();
   S.retryQueue   = [];
   S.doneSet      = new Set();
   S.round        = 0;
