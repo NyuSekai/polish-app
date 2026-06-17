@@ -1387,31 +1387,43 @@ const VERBS = [
 ];
 
 // ── Expand the verb tables into individual matchable cards ─────────
+//  Each card is tagged with its grammatical "form" (person + tense) so
+//  conjugations can be grouped into SAME-FORM families. That way a round
+//  shows e.g. "yo como / yo juego / yo duermo" together — you can never
+//  guess one just by discarding the others.
 VERBS.forEach(v => {
-  WORDS.push({ es:"yo "       + v.ep[0], pl:"ja "     + v.pr[0], conj:true });
-  WORDS.push({ es:"tú "       + v.ep[1], pl:"ty "     + v.pr[1], conj:true });
-  WORDS.push({ es:"él/ella "  + v.ep[2], pl:"on/ona " + v.pr[2], conj:true });
-  WORDS.push({ es:"nosotros " + v.ep[3], pl:"my "     + v.pr[3], conj:true });
-  WORDS.push({ es:"yo "      + v.ea[0] + " (pas.)", pl:"ja "     + v.pa[0], conj:true });
-  WORDS.push({ es:"tú "      + v.ea[1] + " (pas.)", pl:"ty "     + v.pa[1], conj:true });
-  WORDS.push({ es:"él/ella " + v.ea[2] + " (pas.)", pl:"on/ona " + v.pa[2], conj:true });
+  WORDS.push({ es:"yo "       + v.ep[0], pl:"ja "     + v.pr[0], conj:true, form:"pr0" });
+  WORDS.push({ es:"tú "       + v.ep[1], pl:"ty "     + v.pr[1], conj:true, form:"pr1" });
+  WORDS.push({ es:"él/ella "  + v.ep[2], pl:"on/ona " + v.pr[2], conj:true, form:"pr2" });
+  WORDS.push({ es:"nosotros " + v.ep[3], pl:"my "     + v.pr[3], conj:true, form:"pr3" });
+  WORDS.push({ es:"yo "      + v.ea[0] + " (pas.)", pl:"ja "     + v.pa[0], conj:true, form:"pa0" });
+  WORDS.push({ es:"tú "      + v.ea[1] + " (pas.)", pl:"ty "     + v.pa[1], conj:true, form:"pa1" });
+  WORDS.push({ es:"él/ella " + v.ea[2] + " (pas.)", pl:"on/ona " + v.pa[2], conj:true, form:"pa2" });
 });
+
+// Index conjugation cards by form, for building same-form families/decoys
+const CONJ_BY_FORM = {};
+WORDS.forEach(w => {
+  if (w.conj) (CONJ_BY_FORM[w.form] = CONJ_BY_FORM[w.form] || []).push(w);
+});
+const FORM_KEYS = Object.keys(CONJ_BY_FORM);
 
 // ══════════════════════════════════════════════════════════════════
 //  CONSTANTS
 // ══════════════════════════════════════════════════════════════════
 const ROUND_SIZE     = 10;
 const WORDS_PER_GAME = 100;
-const CONJ_PER_GAME  = 40;   // cap conjugations at ~40% of each game (balanced mix)
+const FAMILY_SIZE    = 4;    // conjugations per round share ONE form (4 different verbs)
+                            // → 10 rounds × (4 conj + 6 vocab) = 100 tracked words/game
 
 // ══════════════════════════════════════════════════════════════════
 //  STATE
 // ══════════════════════════════════════════════════════════════════
 let S = {
   mode:          'es-pl',
-  pendingQueue:  [],      // words not yet played
+  pendingBlocks: [],      // pre-built rounds (each = 1 same-form family + vocab)
   retryQueue:    [],      // [{word, dueRound}] — failed words waiting to come back
-  doneSet:       new Set(), // correctly matched word objects
+  doneSet:       new Set(), // correctly matched (tracked) word objects
   round:         0,
   score:         0,
   totalMatched:  0,
@@ -1421,6 +1433,7 @@ let S = {
   roundMatched:  new Set(),
   roundMissed:   new Set(),
   roundWords:    [],      // words in the current round
+  roundDecoy:    [],      // parallel bool[]: true = same-form decoy (not scored/tracked)
   isAnimating:   false,
 };
 
@@ -1439,29 +1452,52 @@ function shuffle(arr) {
 // ══════════════════════════════════════════════════════════════════
 //  ASSEMBLE ROUND  — pulls due retries first, then pending words
 // ══════════════════════════════════════════════════════════════════
+// Make sure every conjugation in a round has at least FAMILY_SIZE same-form
+// companions, padding with decoys (extra same-form verbs, not scored/tracked).
+function addConjDecoys(items) {
+  const present   = new Set(items.map(it => it.word));
+  const formCount = {};
+  items.forEach(it => {
+    if (it.word.conj) formCount[it.word.form] = (formCount[it.word.form] || 0) + 1;
+  });
+  Object.keys(formCount).forEach(form => {
+    const need = FAMILY_SIZE - formCount[form];
+    if (need <= 0) return;
+    const pool = shuffle((CONJ_BY_FORM[form] || []).filter(w => !present.has(w)));
+    pool.slice(0, need).forEach(w => {
+      items.push({ word: w, isRetry: false, decoy: true });
+      present.add(w);
+    });
+  });
+  return items;
+}
+
 function assembleRound() {
-  // Separate retries that are due this round vs. those still cooling down
-  const due = [];
-  const notDue = [];
-  for (const r of S.retryQueue) {
-    (r.dueRound <= S.round ? due : notDue).push(r);
+  // Which retries are due now?
+  let due = S.retryQueue.filter(r => r.dueRound <= S.round);
+
+  // All blocks played but retries are still cooling down → jump to when they're due
+  if (due.length === 0 && S.pendingBlocks.length === 0 && S.retryQueue.length > 0) {
+    S.round = Math.min(...S.retryQueue.map(r => r.dueRound));
+    due = S.retryQueue.filter(r => r.dueRound <= S.round);
   }
 
-  // Take up to ROUND_SIZE due retries; leave overflow in queue (still overdue → next round)
-  const used     = due.slice(0, ROUND_SIZE);
-  const overflow = due.slice(ROUND_SIZE);
-  S.retryQueue   = [...notDue, ...overflow];
-
-  let words = used.map(r => ({ word: r.word, isRetry: true }));
-
-  // Fill remaining slots from the pending queue
-  const need = ROUND_SIZE - words.length;
-  if (need > 0 && S.pendingQueue.length > 0) {
-    const fresh = S.pendingQueue.splice(0, need).map(w => ({ word: w, isRetry: false }));
-    words = [...words, ...fresh];
+  // 1) Due retries → a focused review round, padded with same-form decoys
+  if (due.length > 0) {
+    const used    = due.slice(0, ROUND_SIZE);
+    const usedSet = new Set(used);
+    S.retryQueue  = S.retryQueue.filter(r => !usedSet.has(r));
+    let items = used.map(r => ({ word: r.word, isRetry: true, decoy: false }));
+    items = addConjDecoys(items);
+    return shuffle(items); // [{word, isRetry, decoy}]
   }
 
-  return words; // [{word, isRetry}]
+  // 2) Otherwise → next pre-built family block
+  if (S.pendingBlocks.length > 0) {
+    return S.pendingBlocks.shift().map(w => ({ word: w, isRetry: false, decoy: false }));
+  }
+
+  return [];
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -1484,29 +1520,34 @@ function setMode(m) {
 // ══════════════════════════════════════════════════════════════════
 //  RESTART
 // ══════════════════════════════════════════════════════════════════
-// Pick 100 words for a game: ~40 conjugations + ~60 plain vocab (balanced mix)
-function pickGameWords() {
-  const conj  = WORDS.filter(w => w.conj);
-  const plain = WORDS.filter(w => !w.conj);
+// Build a game as a sequence of rounds. Each round = ONE same-form conjugation
+// family (FAMILY_SIZE different verbs) + plain vocab to fill ROUND_SIZE.
+function buildGameBlocks() {
+  const plainPool = shuffle(WORDS.filter(w => !w.conj));
+  const usedConj  = new Set();
+  const forms     = shuffle(FORM_KEYS);
+  const nRounds   = Math.floor(WORDS_PER_GAME / ROUND_SIZE);   // 10
+  const nPlain    = ROUND_SIZE - FAMILY_SIZE;                  // 6
+  const blocks    = [];
+  let p = 0;
 
-  const nConj  = Math.min(CONJ_PER_GAME, conj.length);
-  const pickC  = shuffle(conj).slice(0, nConj);
-  const pickP  = shuffle(plain).slice(0, WORDS_PER_GAME - nConj);
+  for (let i = 0; i < nRounds; i++) {
+    // Same-form family: FAMILY_SIZE distinct verbs in one person+tense
+    const form = forms[i % forms.length];
+    const fam  = shuffle((CONJ_BY_FORM[form] || []).filter(w => !usedConj.has(w)))
+                   .slice(0, FAMILY_SIZE);
+    fam.forEach(w => usedConj.add(w));
 
-  let chosen = [...pickC, ...pickP];
+    const vocab = plainPool.slice(p, p + nPlain);
+    p += nPlain;
 
-  // Backfill if a pool ran short, so we always reach 100
-  if (chosen.length < WORDS_PER_GAME) {
-    const used  = new Set(chosen);
-    const extra = shuffle(WORDS.filter(w => !used.has(w)))
-                    .slice(0, WORDS_PER_GAME - chosen.length);
-    chosen = [...chosen, ...extra];
+    blocks.push(shuffle([...fam, ...vocab]));
   }
-  return shuffle(chosen);
+  return blocks;
 }
 
 function restartGame() {
-  S.pendingQueue = pickGameWords();
+  S.pendingBlocks = buildGameBlocks();
   S.retryQueue   = [];
   S.doneSet      = new Set();
   S.round        = 0;
@@ -1538,16 +1579,19 @@ function loadRound() {
     return;
   }
 
-  // Separate word objects and isRetry flags — store in roundWords for reference
+  // Store word objects + parallel flag arrays for reference
   S.roundWords = assembled.map(a => a.word);
+  S.roundDecoy = assembled.map(a => !!a.decoy);
   const isRetry = assembled.map(a => a.isRetry);
 
   const isEsPl     = S.mode === 'es-pl';
+  // 🔄 shows only on the source (left) column — never on the answer (right)
+  // column, so a retried pair can't be spotted by its badge.
   const leftItems  = S.roundWords.map((w, i) => ({
     text: isEsPl ? w.es : w.pl, idx: i, conj: !!w.conj, retry: isRetry[i]
   }));
   const rightItems = shuffle(S.roundWords.map((w, i) => ({
-    text: isEsPl ? w.pl : w.es, idx: i, conj: !!w.conj, retry: isRetry[i]
+    text: isEsPl ? w.pl : w.es, idx: i, conj: !!w.conj, retry: false
   })));
 
   document.getElementById('left-header').textContent  = isEsPl ? 'Español' : 'Polaco';
@@ -1640,11 +1684,13 @@ function tryMatch() {
   const rIdx = parseInt(R.dataset.idx);
 
   if (lIdx === rIdx) {
-    // ✓ CORRECT — add to doneSet
-    S.doneSet.add(S.roundWords[lIdx]);
+    // ✓ CORRECT
     S.score += 10;
-    S.totalMatched++;
     S.roundMatched.add(lIdx);
+    if (!S.roundDecoy[lIdx]) {       // decoys earn points but aren't "dominadas"
+      S.doneSet.add(S.roundWords[lIdx]);
+      S.totalMatched++;
+    }
 
     L.classList.remove('selected');
     R.classList.remove('selected');
@@ -1689,10 +1735,12 @@ function tryMatch() {
           correctR.classList.add('missed');
         }
 
-        // Queue this word for retry ~2 rounds later
-        S.retryQueue.push({ word: S.roundWords[correctIdx], dueRound: S.round + 2 });
-
-        S.totalMissed++;
+        // Only real (tracked) words count as fails and come back to retry —
+        // same-form decoys just lock without penalty.
+        if (!S.roundDecoy[correctIdx]) {
+          S.retryQueue.push({ word: S.roundWords[correctIdx], dueRound: S.round + 2 });
+          S.totalMissed++;
+        }
         S.roundMissed.add(correctIdx);
         S.isAnimating = false;
 
