@@ -358,6 +358,7 @@
     <span class="badge">100 por partida</span>
     <span class="badge">reintento automático</span>
   </div>
+  <button class="dark-btn" id="sound-btn" onclick="toggleSound()" title="Activar/silenciar pronunciación">🔊</button>
   <button class="dark-btn" id="dark-btn" onclick="toggleDark()" title="Alternar modo oscuro">🌙</button>
 </header>
 
@@ -414,6 +415,7 @@
     <div class="legend-item"><div class="legend-dot amber"></div> Fallo → vuelve en ~2 rondas</div>
     <div class="legend-item"><div class="legend-dot teal"></div> Conjugación verbal</div>
     <div class="legend-item">🔄 = reintento</div>
+    <div class="legend-item">🔊 clic en una palabra = oír su pronunciación</div>
   </div>
 
   <!-- Round complete -->
@@ -1588,10 +1590,12 @@ function loadRound() {
   // 🔄 shows only on the source (left) column — never on the answer (right)
   // column, so a retried pair can't be spotted by its badge.
   const leftItems  = S.roundWords.map((w, i) => ({
-    text: isEsPl ? w.es : w.pl, idx: i, conj: !!w.conj, retry: isRetry[i]
+    text: isEsPl ? w.es : w.pl, idx: i, conj: !!w.conj, retry: isRetry[i],
+    lang: isEsPl ? 'es' : 'pl'
   }));
   const rightItems = shuffle(S.roundWords.map((w, i) => ({
-    text: isEsPl ? w.pl : w.es, idx: i, conj: !!w.conj, retry: false
+    text: isEsPl ? w.pl : w.es, idx: i, conj: !!w.conj, retry: false,
+    lang: isEsPl ? 'pl' : 'es'
   })));
 
   document.getElementById('left-header').textContent  = isEsPl ? 'Español' : 'Polaco';
@@ -1631,6 +1635,7 @@ function renderCol(colId, items, side) {
     card.textContent  = item.text;
     card.dataset.idx  = item.idx;
     card.dataset.side = side;
+    card.dataset.lang = item.lang;
     card.addEventListener('click', () => handleClick(card));
     col.appendChild(card);
   });
@@ -1640,6 +1645,8 @@ function renderCol(colId, items, side) {
 //  CLICK HANDLER
 // ══════════════════════════════════════════════════════════════════
 function handleClick(card) {
+  speakCard(card);   // pronounce on every click (even completed cards, for review)
+
   if (card.classList.contains('matched') ||
       card.classList.contains('missed')  ||
       card.classList.contains('revealing')) return;
@@ -1821,6 +1828,59 @@ function updateStats() {
   document.getElementById('progress-fill').style.width =
     (S.doneSet.size / WORDS_PER_GAME * 100) + '%';
 }
+
+// ══════════════════════════════════════════════════════════════════
+//  PRONUNCIATION  (Web Speech API — built into the browser, no key)
+// ══════════════════════════════════════════════════════════════════
+let soundOn = localStorage.getItem('polaco-sound') !== '0';   // default ON
+let _voices = [];
+
+function loadVoices() {
+  if ('speechSynthesis' in window) _voices = window.speechSynthesis.getVoices();
+}
+if ('speechSynthesis' in window) {
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;   // voices load async on some browsers
+}
+
+function pickVoice(lang) {
+  const base = lang.split('-')[0];
+  return _voices.find(v => v.lang === lang)
+      || _voices.find(v => v.lang && v.lang.replace('_', '-').toLowerCase().startsWith(base))
+      || null;
+}
+
+// Strip qualifiers like "(pas.)" and read "/" as a pause, so TTS sounds natural
+function cleanForSpeech(t) {
+  return t.replace(/\([^)]*\)/g, '').replace(/\//g, ' , ').replace(/\s+/g, ' ').trim();
+}
+
+function speak(text, lang) {
+  if (!soundOn || !('speechSynthesis' in window)) return;
+  const clean = cleanForSpeech(text);
+  if (!clean) return;
+  const u = new SpeechSynthesisUtterance(clean);
+  u.lang = lang;
+  const v = pickVoice(lang);
+  if (v) u.voice = v;
+  u.rate = 0.9;            // a touch slower, easier to learn from
+  window.speechSynthesis.cancel();   // drop any queued utterance (rapid clicks)
+  window.speechSynthesis.speak(u);
+}
+
+function speakCard(card) {
+  speak(card.textContent, card.dataset.lang === 'es' ? 'es-ES' : 'pl-PL');
+}
+
+function toggleSound() {
+  soundOn = !soundOn;
+  document.getElementById('sound-btn').textContent = soundOn ? '🔊' : '🔇';
+  localStorage.setItem('polaco-sound', soundOn ? '1' : '0');
+  if (soundOn) speak('Polski', 'pl-PL');   // unlock audio on iOS + quick confirmation
+}
+
+// Restore saved sound preference
+document.getElementById('sound-btn').textContent = soundOn ? '🔊' : '🔇';
 
 // ══════════════════════════════════════════════════════════════════
 //  DARK MODE
