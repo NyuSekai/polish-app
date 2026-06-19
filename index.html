@@ -1830,53 +1830,123 @@ function updateStats() {
 }
 
 // ══════════════════════════════════════════════════════════════════
-//  PRONUNCIATION  (Web Speech API — built into the browser, no key)
+//  PRONUNCIATION
+//  Polish audio uses the device's native Polish voice when available
+//  (best quality, e.g. phones). When the device has NO Polish voice
+//  (common on Windows desktop), it falls back to meSpeak — a self-
+//  contained eSpeak engine loaded from a CDN that synthesises Polish
+//  in-browser, so it works everywhere with no API key.
 // ══════════════════════════════════════════════════════════════════
 let soundOn = localStorage.getItem('polaco-sound') !== '0';   // default ON
 let _voices = [];
 
-function loadVoices() {
-  if ('speechSynthesis' in window) _voices = window.speechSynthesis.getVoices();
+function refreshVoices() {
+  if ('speechSynthesis' in window) _voices = window.speechSynthesis.getVoices() || [];
+  // On desktops with no Polish voice, warm up the fallback engine ahead of time
+  if (_voices.length > 0 && !polishWebVoice() && mesState === 'idle') loadMespeak();
 }
-if ('speechSynthesis' in window) {
-  loadVoices();
-  window.speechSynthesis.onvoiceschanged = loadVoices;   // voices load async on some browsers
-}
-
 function pickVoice(lang) {
   const base = lang.split('-')[0];
   return _voices.find(v => v.lang === lang)
       || _voices.find(v => v.lang && v.lang.replace('_', '-').toLowerCase().startsWith(base))
       || null;
 }
+function polishWebVoice() {
+  return _voices.find(v => v.lang && v.lang.toLowerCase().startsWith('pl')) || null;
+}
+if ('speechSynthesis' in window) {
+  refreshVoices();
+  window.speechSynthesis.onvoiceschanged = refreshVoices;   // voices load async
+}
 
-// Strip qualifiers like "(pas.)" and read "/" as a pause, so TTS sounds natural
+// Strip qualifiers like "(pas.)" and read "/" as a short pause for natural TTS
 function cleanForSpeech(t) {
   return t.replace(/\([^)]*\)/g, '').replace(/\//g, ' , ').replace(/\s+/g, ' ').trim();
 }
 
-function speak(text, lang) {
-  if (!soundOn || !('speechSynthesis' in window)) return;
+// ── native Web Speech voice ───────────────────────────────────────
+function webSpeak(text, lang, voice) {
+  if (!('speechSynthesis' in window)) return;
+  const synth = window.speechSynthesis;
+  try { if (synth.speaking) synth.cancel(); } catch (e) {}
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang;
+  if (voice) u.voice = voice;
+  u.rate = 0.9;
+  synth.speak(u);
+}
+
+// ── meSpeak fallback engine (lazy-loaded eSpeak from CDN) ──────────
+const MES_BASE = 'https://cdn.jsdelivr.net/npm/mespeak@2.0.2/';
+let mesState = 'idle';   // idle | loading | ready | failed
+let mesPending = null;   // last Polish text requested before the engine was ready
+
+function loadMespeak() {
+  if (mesState !== 'idle') return;
+  mesState = 'loading';
+  const src = MES_BASE + 'src/';
+  const cache = {};
+  const loadCJS = (file) => fetch(src + file).then(r => r.text()).then(code => {
+    const module = { exports: {} };
+    const require = (p) => cache[p.replace(/^\.\//, '')] || {};
+    new Function('module', 'exports', 'require', 'self', 'window', 'process', 'global', code)
+      (module, module.exports, require, window, window, undefined, window);
+    cache[file] = module.exports;
+    cache[file.replace('.js', '')] = module.exports;
+    return module.exports;
+  });
+  loadCJS('ESpeak.js')
+    .then(() => loadCJS('index.js'))
+    .then(M => {
+      window.meSpeak = M;
+      M.loadConfig(MES_BASE + 'src/mespeak_config.json');
+      M.loadVoice(MES_BASE + 'voices/pl.json', (ok) => {
+        if (!ok) { mesState = 'failed'; return; }
+        mesState = 'ready';
+        if (mesPending) { const t = mesPending; mesPending = null; mesSpeak(t); }
+      });
+    })
+    .catch(() => { mesState = 'failed'; });
+}
+
+function mesSpeak(text) {
+  if (mesState === 'ready' && window.meSpeak) {
+    try {
+      const url = window.meSpeak.speak(text, { voice: 'pl', speed: 160, rawdata: 'data-url' });
+      if (url) { new Audio(url).play().catch(() => {}); }
+    } catch (e) {}
+    return;
+  }
+  mesPending = text;                 // remember it; play once the engine is ready
+  if (mesState === 'idle') loadMespeak();
+}
+
+// ── public entry points ───────────────────────────────────────────
+function speakPolish(text) {
   const clean = cleanForSpeech(text);
   if (!clean) return;
-  const u = new SpeechSynthesisUtterance(clean);
-  u.lang = lang;
-  const v = pickVoice(lang);
-  if (v) u.voice = v;
-  u.rate = 0.9;            // a touch slower, easier to learn from
-  window.speechSynthesis.cancel();   // drop any queued utterance (rapid clicks)
-  window.speechSynthesis.speak(u);
+  refreshVoices();
+  const v = polishWebVoice();
+  if (v) return webSpeak(clean, 'pl-PL', v);     // native Polish voice → best
+  if (_voices.length === 0) return webSpeak(clean, 'pl-PL', null); // voices not ready: trust browser
+  mesSpeak(clean);                               // no Polish voice on device → eSpeak engine
+}
+function speakSpanish(text) {
+  const clean = cleanForSpeech(text);
+  if (clean) webSpeak(clean, 'es-ES', pickVoice('es-ES'));
 }
 
 function speakCard(card) {
-  speak(card.textContent, card.dataset.lang === 'es' ? 'es-ES' : 'pl-PL');
+  if (!soundOn) return;
+  if (card.dataset.lang === 'es') speakSpanish(card.textContent);
+  else                            speakPolish(card.textContent);
 }
 
 function toggleSound() {
   soundOn = !soundOn;
   document.getElementById('sound-btn').textContent = soundOn ? '🔊' : '🔇';
   localStorage.setItem('polaco-sound', soundOn ? '1' : '0');
-  if (soundOn) speak('Polski', 'pl-PL');   // unlock audio on iOS + quick confirmation
+  if (soundOn) speakPolish('polski');   // unlock audio + quick confirmation
 }
 
 // Restore saved sound preference
