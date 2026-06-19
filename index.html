@@ -1854,10 +1854,6 @@ function pickVoice(lang) {
 function polishWebVoice() {
   return _voices.find(v => v.lang && v.lang.toLowerCase().startsWith('pl')) || null;
 }
-if ('speechSynthesis' in window) {
-  refreshVoices();
-  window.speechSynthesis.onvoiceschanged = refreshVoices;   // voices load async
-}
 
 // Strip qualifiers like "(pas.)" and read "/" as a short pause for natural TTS
 function cleanForSpeech(t) {
@@ -1947,6 +1943,12 @@ function toggleSound() {
   document.getElementById('sound-btn').textContent = soundOn ? '🔊' : '🔇';
   localStorage.setItem('polaco-sound', soundOn ? '1' : '0');
   if (soundOn) speakPolish('polski');   // unlock audio + quick confirmation
+}
+
+// Detect voices now that all state above is initialised (and re-check when they load)
+if ('speechSynthesis' in window) {
+  refreshVoices();
+  window.speechSynthesis.onvoiceschanged = refreshVoices;   // voices load async
 }
 
 // Restore saved sound preference
